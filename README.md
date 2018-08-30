@@ -3,7 +3,7 @@
 Welcome to the *lsm* package!
 =============================
 
-When the values of the outcome variable Y are either 0 or 1, the function lsm() calculates the estimation of the log likelihood in the saturated model. This model is characterized by Llinas (2006, ISSN:2389-8976) in section 2.3 through the assumptions 1 and 2. If Y is dichotomous and the data are grouped in J populations, it is recommended to use the function lsm() because it works very well for all K.
+When the values of the outcome variable Y are either 0 or 1, the function calculates the estimation of the log likelihood in the saturated model. This model is characterized by Llinas (2006, ISSN:2389-8976) in section 2.3 through the assumptions 1 and 2. If is dichotomous and the data are grouped in J populations, it is recommended to use the function because it works very well for all .
 
 Details
 -------
@@ -44,10 +44,14 @@ library(lsm)
   
   data <- data.frame (CHD,  AGE )
   lsm(CHD ~ AGE , data)
-#> $log_Likelihood
+#> 
+#> Call:
+#> lsm(formula = CHD ~ AGE, data = data)
+#> 
+#> Log_Likelihood: 
 #> [1] -4.257109
 #> 
-#> $populations
+#> Populations: 
 #> [1] 10
 ```
 
@@ -69,19 +73,28 @@ library(lsm)
  
  data <- data.frame (y, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10)
  lsm(y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10, data)
-#> $log_Likelihood
+#> 
+#> Call:
+#> lsm(formula = y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + 
+#>     x10, data = data)
+#> 
+#> Log_Likelihood: 
 #> [1] -11.34303
 #> 
-#> $populations
+#> Populations: 
 #> [1] 6
  
 ## For more ease, use the following notation.
  
  lsm(y ~., data)
-#> $log_Likelihood
+#> 
+#> Call:
+#> lsm(formula = y ~ ., data = data)
+#> 
+#> Log_Likelihood: 
 #> [1] -11.34303
 #> 
-#> $populations
+#> Populations: 
 #> [1] 6
 ```
 
@@ -98,18 +111,26 @@ y <- as.factor(c(1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1))
 
    data <- data.frame (y, x1, x2, x3, x4, x5) 
   lsm(y ~ x1 + x2 + x3 + x4 + x5, data)
-#> $log_Likelihood
+#> 
+#> Call:
+#> lsm(formula = y ~ x1 + x2 + x3 + x4 + x5, data = data)
+#> 
+#> Log_Likelihood: 
 #> [1] -7.45472
 #> 
-#> $populations
+#> Populations: 
 #> [1] 4
   
 ## For more ease, use the following notation.
   
   lsm(y~., data)
-#> $log_Likelihood
+#> 
+#> Call:
+#> lsm(formula = y ~ ., data = data)
+#> 
+#> Log_Likelihood: 
 #> [1] -7.45472
 #> 
-#> $populations
+#> Populations: 
 #> [1] 4
 ```

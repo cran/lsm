@@ -9,13 +9,42 @@ lsm(formula, data)
 \arguments{
 \item{formula}{An expression of the form y ~ model, where y is the outcome variable (binary or dichotomous: its values are 0 or 1).}
 
-\item{data}{an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which lsm() is called.}
+\item{data}{an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which \code{lsm()} is called.}
 }
 \value{
-Value of the estimation and  the total of the population.
+\code{lsm} returns an object of class "\code{lsm}".
+
+An object of class "\code{lsm}" is a list containing at least the
+ following components:
+
+\item{log_Likelihood}{Estimation of the log likelihood.}
+
+\item{populations}{Total number \code{J} of populations in the model.}
+
+\item{z_j}{Value of \code{Zj} (the sum of the observations in the \code{jth} population).}
+
+\item{n_j}{Number of the observations in the \code{jth} population.}
+
+\item{p_j}{Estimation of \code{pj} in the \code{jth} population.}
+
+\item{fitted.values}{Value of the log_Likelihood in the \code{jth} population.}
+
+\item{v_j}{Variance of the Bernoulli variables in the \code{jth} population.}
+
+\item{m_j}{Expected value of \code{Zj}.}
+
+\item{V_j}{Variance of \code{Zj}.}
+
+\item{V}{Variance and covariance matrix of \code{Z}, the vector that contains all the \code{Zj}.}
+
+\item{S_p}{Score vector of the model.}
+
+\item{I_p}{Information matrix of the model.}
+
+\item{Zast_j}{Standardized variable of \code{Zj}.}
 }
 \description{
-When the values of the outcome variable Y are either 0 or 1, the function lsm() calculates the estimation of the log likelihood in the saturated model. This model is characterized by Llinas (2006, ISSN:2389-8976) in section 2.3 through the assumptions 1 and 2. If Y is dichotomous and the data are grouped in J populations, it is recommended to use the function lsm() because it works very well for all K.
+When the values of the outcome variable \code{Y} are either 0 or 1, the function \code{lsm()} calculates the estimation of the log likelihood in the saturated model. This model is characterized by Llinas (2006, ISSN:2389-8976) in section 2.3 through the assumptions 1 and 2. If \code{Y} is dichotomous and the data are grouped in \code{J} populations, it is recommended to use the function \code{lsm()} because it works very well for all \code{K}.
 }
 \details{
 The saturated model is characterized by the assumptions 1 and 2 presented in section 2.3 by Llinas (2006, ISSN:2389-8976).
@@ -27,15 +56,15 @@ AGE <- c(20, 23, 24, 25, 25, 26, 26, 28, 28, 29, 30, 30, 30, 30, 30, 30, 30, 32,
 CHD <- c(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0)
 
  data <- data.frame (CHD, AGE)
-lsm(CHD ~ AGE , data)
+ lsm(CHD ~ AGE , data)
 
 # Other case.
 
-y	<- c(0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1)
- x1 <- c(2, 2, 2, 2,	2, 5, 5, 5, 5, 6, 6, 6, 8, 8, 11, 11, 11, 1)
- x2 <- c(3, 3, 3, 3,	3, 6,	6, 6, 6, 8, 8, 8, 9, 9, 12,	12,	12,	12)
- x3 <- c(4, 4, 4, 4,	4, 7,	7, 7, 7, 9, 9, 9, 10, 10, 13,	13,	13,	13)
- x4 <- c(1, 1, 1, 1,	1, 9,	9, 9, 9, 10, 10, 10, 4, 4, 2, 2, 2, 2)
+ y <- c(0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1)
+ x1 <- c(2, 2, 2, 2, 2, 5, 5, 5, 5, 6, 6, 6, 8, 8, 11, 11, 11, 1)
+ x2 <- c(3, 3, 3, 3, 3, 6, 6, 6, 6, 8, 8, 8, 9, 9, 12, 12, 12, 12)
+ x3 <- c(4, 4, 4, 4, 4, 7, 7, 7, 7, 9, 9, 9, 10, 10, 13, 13, 13, 13)
+ x4 <- c(1, 1, 1, 1, 1, 9, 9, 9, 9, 10, 10, 10, 4, 4, 2, 2, 2, 2)
  x5 <- c(32, 32, 32, 32, 32, 20, 20, 20, 20, 21, 21, 21, 19, 19, 16, 16, 16, 16)
  x6 <- c(15, 15, 15, 15, 15, 18, 18, 18, 18, 16, 16, 16, 25, 25, 20, 20, 20, 20)
  x7 <- c(28, 28, 28, 28, 28, 23, 23, 23, 23, 32, 32, 32, 24, 24, 32, 32, 32, 32)
@@ -71,5 +100,5 @@ y	<- c(0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1)
 [2] Hosmer, D. (2013). Wiley Series in Probability and Statistics Ser. : Applied Logistic Regression (3). New York: John Wiley & Sons, Incorporated.
 }
 \author{
-Humberto Llinas Solano [aut], Universidad del Norte, Barranquilla-Colombia \\ Omar Fabregas Cera [aut], Universidad del Norte, Barranquilla-Colombia \\ Jorge Villalba Acevedo [cre, aut], Unicolombo, Cartagena-Colombia.
+Humberto Llinas Solano [aut], Universidad del Norte, Barranquilla-Colombia \\ Omar Fabregas Cera [aut], Universidad del Norte, Barranquilla-Colombia \\ Jorge Villalba Acevedo [cre, aut], Cartagena-Colombia.
 }

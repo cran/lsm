@@ -1,8 +1,8 @@
 Package: lsm
 Type: Package
 Title: Estimation of the log Likelihood of the Saturated Model
-Version: 0.1.6
-Date: 2018-03-30
+Version: 0.1.8
+Date: 2018-08-30
 Authors@R: c(person("Humberto", "Llinas", role = c("aut")),
   person("Omar", "Fabregas", role = c("aut")),
   person("Jorge", "Villalba", email = "jlvia1191@gmail.com", role = c("aut", "cre")))
@@ -16,9 +16,9 @@ Encoding: UTF-8
 URL: https://github.com/jlvia1191/lsm
 License: MIT + file LICENSE
 LazyData: TRUE
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 Collate: 'lsm.R'
 NeedsCompilation: no
-Packaged: 2018-03-30 15:10:27 UTC; jorgeR
+Packaged: 2018-08-30 07:59:08 UTC; jorgeR
 Repository: CRAN
-Date/Publication: 2018-04-09 13:52:11 UTC
+Date/Publication: 2018-08-30 08:12:13 UTC
