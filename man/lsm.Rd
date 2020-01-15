@@ -4,101 +4,146 @@
 \alias{lsm}
 \title{Estimation of the log Likelihood of the Saturated Model}
 \usage{
-lsm(formula, data)
+lsm(formula, family=binomial, data, na.action )
 }
 \arguments{
 \item{formula}{An expression of the form y ~ model, where y is the outcome variable (binary or dichotomous: its values are 0 or 1).}
 
+\item{family}{an optional family for defaul binomial}
+
 \item{data}{an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which \code{lsm()} is called.}
+
+\item{na.action}{a function which indicates what should happen when the data contain \code{NAs}.}
+ 
+
 }
 \value{
 \code{lsm} returns an object of class "\code{lsm}".
 
 An object of class "\code{lsm}" is a list containing at least the
  following components:
+ 
+ \item{coefficients}{Vector of coefficients estimations.} 
 
-\item{log_Likelihood}{Estimation of the log likelihood.}
+ \item{Std.Error}{Vector of the coefficients’s standard error.} 
 
-\item{populations}{Total number \code{J} of populations in the model.}
+ \item{Exp(B)}{Vector with the exponential of the coefficients.} 
 
-\item{z_j}{Value of \code{Zj} (the sum of the observations in the \code{jth} population).}
+ \item{Wald}{Value of the Wald statistic.} 
 
-\item{n_j}{Number of the observations in the \code{jth} population.}
+ \item{D.f}{Degree of freedom for the Chi-squared distribution.} 
 
-\item{p_j}{Estimation of \code{pj} in the \code{jth} population.}
+ \item{P.value}{P-value with the Chi-squared distribution.} 
 
-\item{fitted.values}{Value of the log_Likelihood in the \code{jth} population.}
+ \item{Log_Lik_Complete}{Estimation of the log likelihood in the complete model.} 
 
-\item{v_j}{Variance of the Bernoulli variables in the \code{jth} population.}
+ \item{Log_Lik_Null}{Estimation of the log likelihood in the null model.} 
 
-\item{m_j}{Expected value of \code{Zj}.}
+ \item{Log_Lik_Logit}{Estimation of the log likelihood in the logistic model.} 
 
-\item{V_j}{Variance of \code{Zj}.}
+ \item{Log_Lik_Saturate}{Estimation of the log likelihood in the saturate model.} 
 
-\item{V}{Variance and covariance matrix of \code{Z}, the vector that contains all the \code{Zj}.}
+ \item{Populations}{Number of populations in the saturated model.} 
 
-\item{S_p}{Score vector of the model.}
+ \item{Dev_Null_vs_Logit }{Value of the test statistic  (Hypothesis: null vs logistic models).} 
 
-\item{I_p}{Information matrix of the model.}
+ \item{Dev_Logit_vs_Complete}{ Value of the test statistic  (Hypothesis:  logistic vs complete models).} 
 
-\item{Zast_j}{Standardized variable of \code{Zj}.}
+ \item{Dev_Logit_vs_Saturate}{ Value of the test statistic  (Hypothesis: logistic vs saturated models).} 
+
+ \item{Df_Null_vs_Logit }{Degree of freedom for the test statistic’s distribution (Hypothesis: null vs logistic models).} 
+
+ \item{Df_Logit_vs_Complete }{ Degree of freedom for the test statistic’s distribution (Hypothesis: logistic vs saturated models).} 
+
+ \item{Df_Logit_vs_Saturate}{ Degree of freedom for the test statistic’s distribution (Hypothesis: Logistic vs saturated models).} 
+
+ \item{P.v_Null_vs_Logit}{\code{p-values} for the hypothesis test: null vs logistic models.} 
+
+ \item{P.v_Logit_vs_Complete }{\code{p-values} for the hypothesis test:  logistic vs complete models.} 
+
+ \item{P.v_Logit_vs_Saturate}{\code{p-values} for the hypothesis test: logistic vs saturated models.} 
+
+ \item{Logit}{Estimation of the logit function (the log-odds).} 
+
+ \item{p_hat}{Estimation of the probability that the outcome variable takes the value 1, given one population.} 
+
+ \item{fitted.values}{Vector with the values of the log_Likelihood in each \code{jth} population.}
+
+ \item{z_j}{Vector with the values of each \code{Zj} (the sum of the observations in the \code{jth} population).}
+
+ \item{n_j}{Vector with the \code{nj} (the number of the observations in each \code{jth} population).}
+
+ \item{p_j}{Vector with the estimation of each \code{pj} (the probability of success in the \code{jth} population).}
+
+ \item{v_j}{Vector with the variance of the Bernoulli variables in the \code{jth} population.}
+
+ \item{m_j}{Vector with the expected values of \code{Zj} in the \code{jth} population.}
+
+ \item{V_j}{Vector with the variances of \code{Zj} in the \code{jth} population.}
+
+ \item{V}{Variance and covariance matrix of \code{Z}, the vector that contains all the \code{Zj}.}
+
+ \item{S_p}{Score vector in the saturated model.}
+
+ \item{I_p}{Information matrix in the saturated model.}
+
+ \item{Zast_j}{Vector with the values of the standardized variable of \code{Zj}.}
 }
+
 \description{
-When the values of the outcome variable \code{Y} are either 0 or 1, the function \code{lsm()} calculates the estimation of the log likelihood in the saturated model. This model is characterized by Llinas (2006, ISSN:2389-8976) in section 2.3 through the assumptions 1 and 2. If \code{Y} is dichotomous and the data are grouped in \code{J} populations, it is recommended to use the function \code{lsm()} because it works very well for all \code{K}.
+When the values of the outcome variable \code{Y} are either 0 or 1, the function \code{lsm()} calculates, among others, the values of the maximum likelihood estimates (ML-estimations) of the  corresponding parameters  in the null, complete, saturated and logistic models and also the estimations of the log likelihood in each of this models. The models null and complete are described by Llinas (2006, ISSN:2389-8976) in sections 2.1 and 2.2.  The saturated model is characterized in section 2.3 of that paper through the assumptions 1 and 2. Finally,  the logistic model and its assumptions are explained in section 2.4. 
+
+Additionally, based on asymptotic theory for these ML-estimations and the score vector, the function \code{lsm()} calculates the values of the approximations for different deviations -2 log L, where L is the likelihood function. Based on these approximations, the function obtains the values of statistics for several hypothesis tests (each with an asymptotic chi-squared distribution): Null vs Logit, Logit vs Complete and Logit vs Saturated. 
+
+With the function \code{lsm()}, it is possible calculate confidence intervals for the logistic parameters and for the corresponding odds ratio.
+The asymptotic theory was developed for the case of independent, non-identically distributed variables.  If \code{Y} is dichotomous and the data are grouped in \code{J} populations, it is recommended to use the function \code{lsm()} because it works very well for all \code{K}, the number of explanatory variables.
 }
+
 \details{
 The saturated model is characterized by the assumptions 1 and 2 presented in section 2.3 by Llinas (2006, ISSN:2389-8976).
 }
 \examples{
 # Hosmer, D. (2013) page 3: Age and coranary Heart Disease (CHD) Status of 20 subjects:
 
-AGE <- c(20, 23, 24, 25, 25, 26, 26, 28, 28, 29, 30, 30, 30, 30, 30, 30, 30, 32, 33, 33)
-CHD <- c(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0)
+ AGE <- c(20, 23, 24, 25, 25, 26, 26, 28, 28, 29, 30, 30, 30, 30, 30, 30, 30, 32, 33, 33)
+ CHD <- c(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0)
 
  data <- data.frame (CHD, AGE)
- lsm(CHD ~ AGE , data)
+ lsm(CHD ~ AGE , family = binomial,  data)
 
-# Other case.
+ # Other case.
 
- y <- c(0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1)
- x1 <- c(2, 2, 2, 2, 2, 5, 5, 5, 5, 6, 6, 6, 8, 8, 11, 11, 11, 1)
- x2 <- c(3, 3, 3, 3, 3, 6, 6, 6, 6, 8, 8, 8, 9, 9, 12, 12, 12, 12)
- x3 <- c(4, 4, 4, 4, 4, 7, 7, 7, 7, 9, 9, 9, 10, 10, 13, 13, 13, 13)
- x4 <- c(1, 1, 1, 1, 1, 9, 9, 9, 9, 10, 10, 10, 4, 4, 2, 2, 2, 2)
- x5 <- c(32, 32, 32, 32, 32, 20, 20, 20, 20, 21, 21, 21, 19, 19, 16, 16, 16, 16)
- x6 <- c(15, 15, 15, 15, 15, 18, 18, 18, 18, 16, 16, 16, 25, 25, 20, 20, 20, 20)
- x7 <- c(28, 28, 28, 28, 28, 23, 23, 23, 23, 32, 32, 32, 24, 24, 32, 32, 32, 32)
- x8 <- c(0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0)
- x9 <- c(6, 6, 6, 6, 6, 10, 10, 10, 10, 11, 11, 11, 7, 7, 21, 21, 21, 21)
- x10 <- c(5, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8)
+    y <- c(1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1)
+   x1 <- c(2, 2, 2, 5, 5, 5, 5, 8, 8, 11, 11, 11)
+ 
+  data <- data.frame (y, x1)
+  ELAINYS <-lsm(y ~ x1, family=binomial, data)
+  summary(ELAINYS)
 
- data <- data.frame (y, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10)
- lsm(y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10, data)
+ ## For more ease, use the following notation.
+  lsm(y~., family = binomial, data)
 
-## For more ease, use the following notation.
- lsm(y~., data)
+ ## Other case.
 
-## Other case.
-
-  y <- as.factor(c(1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1))
- x1 <- as.factor(c(2, 2, 2, 5, 5, 5, 5, 8, 8, 11, 11, 11))
- x2 <- as.factor(c(3, 3, 3, 6, 6, 6, 6, 9, 9, 12, 12, 12))
- x3 <- as.factor(c(4, 4, 4, 7, 7, 7, 7, 10, 10, 13, 13, 13))
- x4 <- as.factor(c(1, 1, 1, 9, 9, 9, 9, 4, 4, 2, 2, 2))
- x5 <- as.factor(c(5, 5, 5, 6, 6, 6, 6, 7, 7, 8, 8, 8))
-
- data <- data.frame (y, x1, x2, x3, x4, x5)
- lsm(y ~ x1 + x2 + x3 + x4 + x5, data)
-
-## For more ease, use the following notation.
- lsm(y~., data)
+ y <- as.factor(c(1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1))
+  x1 <- as.factor(c(2, 2, 2, 5, 5, 5, 5, 8, 8, 11, 11, 11))
+ 
+  data <- data.frame (y, x1)
+  ELAINYS1 <-lsm(y ~ x1, family=binomial, data)
+  confint(ELAINYS1)
+  
+ ## For more ease, use the following notation.
+  lsm(y~. , family = binomial, data)
 
 }
+
 \references{
 [1] Humberto Jesus Llinas. (2006). Accuracies in the theory of the logistic models. Revista Colombiana De Estadistica,29(2), 242-244.
 
 [2] Hosmer, D. (2013). Wiley Series in Probability and Statistics Ser. : Applied Logistic Regression (3). New York: John Wiley & Sons, Incorporated.
+
+[3] Chambers, J. M. and Hastie, T. J. (1992) Statistical Models in S. Wadsworth & Brooks/Cole.
 }
 \author{
-Humberto Llinas Solano [aut], Universidad del Norte, Barranquilla-Colombia \\ Omar Fabregas Cera [aut], Universidad del Norte, Barranquilla-Colombia \\ Jorge Villalba Acevedo [cre, aut], Cartagena-Colombia.
+Humberto Llinas Solano [aut], Universidad del Norte, Barranquilla-Colombia \\ Omar Fabregas Cera [aut], Universidad del Norte, Barranquilla-Colombia \\ Jorge Villalba Acevedo [cre, aut], Universidad Tecnológica de Bolívar, Cartagena-Colombia.
 }
