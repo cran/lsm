@@ -123,8 +123,14 @@
 
 lsm <- function(formula, family=binomial, data, na.action)
 {
-  mf <- model.frame(formula = formula, data = data)
+
   data1 <- data
+  if(anyNA(data1)==TRUE){
+    data1 = data1[complete.cases(data1),]
+  }
+
+  mf <- model.frame(formula = formula, data = data1);mf
+  
   res <- do.call(rbind, (tapply(as.vector(mf[, 1]), t(apply((mf[, -1,drop =FALSE]), 1, paste0,collapse = "-")),function(x) c(z = sum(as.numeric(x)), n = length(as.numeric(x)),p = mean(as.numeric(x))))))
   zj <- res[, 1]
   nj <- res[, 2]
@@ -146,7 +152,8 @@ lsm <- function(formula, family=binomial, data, na.action)
   Media <- mean(y_n)
   n <- length(mf[, 1])
   Nul <- n * (Media * log(Media) + (1 - Media) * log(1 - Media))
-  data1 <- lapply(data, function(x){
+  
+  data1 <- lapply(data1, function(x){
     if (is.factor(x)) 
       x <- as.numeric_version(x) 
     x <-  as.numeric(x)
@@ -163,8 +170,14 @@ lsm <- function(formula, family=binomial, data, na.action)
   x_n <- as.data.frame(x_n)
   
   X <- as.matrix(cbind(1,x_n))
-  Bt <- as.matrix(coef)
-  g_t <- X %*% Bt
+  
+  if(anyNA(B)==TRUE){
+    a <- which(is.na(B))
+    B <- na.omit(B)
+    X <- X[,-a]
+  }
+  
+  g_t <- X %*% B
   p_ <- function(g_){exp(g_t)/(1+exp(g_t))}
   p_t <- p_(g_t)
   q_i <- 1 - p_t
@@ -176,12 +189,12 @@ lsm <- function(formula, family=binomial, data, na.action)
   o <-(t(X) %*% V %*% X)
   varB <- solve(o)
   SEBj <- (diag(varB))^(1/2)
-  W <- t(B) %*% o %*% B
-  z <- (coef/SEBj)^2
+  #W <- t(B) %*% o %*% B
+  z <- (B/SEBj)^2
   #p_vz <- 2*pnorm(abs(z), lower.tail=FALSE)
   d_f <- (rep(1, length(z)))
   P_valor <- 1 - pchisq(z, d_f)
-  exb <- exp(coef)
+  exb <- exp(B)
   OR <- exp(coef[2])
   
   #Comparativo de Modelos#
@@ -205,7 +218,8 @@ lsm <- function(formula, family=binomial, data, na.action)
   p_vt <- pchisq(c(Dvt), df=gt, lower.tail=FALSE)
   #Decisi2<-ifelse(p_val2<0.05,"Se rechaza H_0","No se rechaza H_0")
 
-  Ela <- list(coefficients = coef,
+  Ela <- list(coefficients = B,
+              coef = coef,
               Std.Error = SEBj,
               ExpB = exb,
               Wald = z,
@@ -244,7 +258,8 @@ lsm <- function(formula, family=binomial, data, na.action)
               V = V,
               S_p = sp, 
               I_p = ip, 
-              Zast_j = as.matrix(Zj))
+              Zast_j = as.matrix(Zj),
+              data = data)
   
   Ela$call <- match.call()
   class(Ela) <- "lsm"
@@ -261,6 +276,11 @@ print.lsm <- function(x, ...)
   print(x$call)
  
   cat("\nEstimated Regression Model (Maximum Likelihood) \n")
+  
+  if(anyNA(x$coef)==TRUE){
+    cat("(", sum(is.na(x$coef)), " not defined because of singularities)\n", sep = "")
+  }
+  
   printCoefmat(TB, P.values=TRUE, has.Pvalue=TRUE)
   
   cat("\nLog_Likelihood: \n")
@@ -268,7 +288,11 @@ print.lsm <- function(x, ...)
   dimnames(LL) <- list("Estimation", c("Complete", "Null", "Logit", "Saturate"))
   print(t(LL))
   
-  cat("\nPopulations in Saturate Model: ", x$Populations, "\n\n", sep = "")
+  cat("\nPopulations in Saturate Model: ", x$Populations, "\n", sep = "")
+  
+  if(anyNA(x$data)==TRUE){
+    cat("(",nrow(x$data) - nrow(na.omit(x$data)) , " observations deleted due to missingness)\n", sep = "")
+  }
 }
 
 #' @export
@@ -303,16 +327,14 @@ confint.lsm <-  function(object, parm, level =0.95, ...)
     }
   
   alpha <- 1 - level
-  z <- qnorm(1 - alpha/2)
-  li <- object$coefficients - z*object$Std.Error
-  ls <- object$coefficients + z*object$Std.Error
+  Z <- qnorm(1 - alpha/2)
+  li <- object$coefficients - Z*object$Std.Error
+  ls <- object$coefficients + Z*object$Std.Error
   ret <- cbind(li, ls)
   colnames(ret) <- c("lower", "upper")
-  odds <- cbind(exp(li[-1]), exp(ls[-1]))
-  colnames(odds) <- c("lower", "upper")
-  sal <- list(confint=ret, ratios=odds, level = level*100)
+  sal <- list(confint = ret, ratios = exp(ret[-1,]), level = level*100)
   class(sal) <- "confint.lsm"
-  print(sal)
+  return(sal)
 }
 
 #' @export

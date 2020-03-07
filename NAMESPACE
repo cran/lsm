@@ -10,8 +10,10 @@ importFrom("stats", "add1", "anova", "as.formula", "binomial", "coef",
              "qchisq", "qnorm", "terms", "uniroot", "update", "vcov", "coefficients", "cor")
 importFrom("utils", "capture.output", "head")
 importFrom("stats", "printCoefmat")
-
-
+importFrom("stats", "na.omit")
+importFrom("stats", "complete.cases")
+importFrom("utils", "data")
+ 
 ## Export of public functions.
 export(
 lsm, 

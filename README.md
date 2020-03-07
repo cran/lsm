@@ -1,4 +1,14 @@
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/lsm)](https://cran.r-project.org/package=lsm)
+
+# `lsm()`
+
+**Release:**[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/lsm)](https://cran.r-project.org/package=lsm) ![CRAN Monthly Downloads](http://cranlogs.r-pkg.org/badges/last-month/lsm) ![CRAN
+Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/lsm)
+
+
+**Development:** [![Project Status: Active - The project has reached a
+stable, usable state and is being actively
+developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+
 
 Welcome to the *lsm* package!
 =============================
@@ -10,26 +20,11 @@ Details
 
 The saturated model is characterized by the assumptions 1 and 2 presented in section 2.3 by Llinas (2006, ISSN:2389-8976).
 
-References
-----------
-
-\[1\] Humberto Jesus Llinas. (2006). Accuracies in the theory of the logistic models. Revista Colombiana De Estadistica,29(2), 242-244.
-
-\[2\] Hosmer, D. (2013). Wiley Series in Probability and Statistics Ser. : Applied Logistic Regression (3). New York: John Wiley & Sons, Incorporated.
-
-\[3\] Chambers, J. M. and Hastie, T. J. (1992) Statistical Models in S. Wadsworth & Brooks/Cole.
-
-
-Author(s)
----------
-
-Humberto Llinas Solano \[aut\], Universidad del Norte, Barranquilla-Colombia \\ Omar Fabregas Cera \[aut\], Universidad del Norte, Barranquilla-Colombia \\ Jorge Villalba Acevedo \[cre, aut\], Universidad Tecnológica de Bolívar, Cartagena-Colombia.
-
 
 Installation
 ------------
 
-```` {r}
+```{r}
 library(devtools)
 install_github("jlvia1191/lsm")
 ```
@@ -86,3 +81,19 @@ library(lsm)
   ELAINYS1 <-lsm(y ~ x1, family=binomial, data)
   confint(ELAINYS1)
 ```
+
+
+References
+----------
+
+[1]  Humberto Jesus Llinas. (2006). Accuracies in the theory of the logistic models. Revista Colombiana De Estadistica,29(2), 242-244.
+
+[2]  Hosmer, D. (2013). Wiley Series in Probability and Statistics Ser. : Applied Logistic Regression (3). New York: John Wiley & Sons, Incorporated.
+
+[3] Chambers, J. M. and Hastie, T. J. (1992) Statistical Models in S. Wadsworth & Brooks/Cole.
+
+
+Author(s)
+---------
+
+Humberto Llinas Solano [aut], Universidad del Norte, Barranquilla-Colombia \\ Omar Fabregas Cera [aut], Universidad del Norte, Barranquilla-Colombia \\ Jorge Villalba Acevedo [cre, aut], Universidad Tecnológica de Bolívar, Cartagena-Colombia.
