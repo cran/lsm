@@ -1,13 +1,17 @@
 
 # `lsm()`
 
-**Release:**[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/lsm)](https://cran.r-project.org/package=lsm) ![CRAN Monthly Downloads](http://cranlogs.r-pkg.org/badges/last-month/lsm) ![CRAN
-Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/lsm)
+<!-- badges: start -->
+
+**Release:**[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/lsm)](https://cran.r-project.org/package=lsm) ![CRAN Monthly Downloads](https://cranlogs.r-pkg.org/badges/last-month/lsm) ![CRAN
+Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/lsm)
 
 
 **Development:** [![Project Status: Active - The project has reached a
 stable, usable state and is being actively
-developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
+<!-- badges: end -->
 
 
 Welcome to the *lsm* package!
@@ -25,19 +29,12 @@ Installation
 ------------
 
 ```{r}
-library(devtools)
-install_github("jlvia1191/lsm")
+install.packages("lsm")
+library(lsm)
+
 ```
 
 
-De forma alternativa
-
-
-```{r}
-install.packages("devtools")
-library(devtools)
-devtools::install_github("jlvia1191/lsm")
-```
 
 Example Usage
 -------------
@@ -96,4 +93,9 @@ References
 Author(s)
 ---------
 
+
 Humberto Llinas Solano [aut], Universidad del Norte, Barranquilla-Colombia \\ Omar Fabregas Cera [aut], Universidad del Norte, Barranquilla-Colombia \\ Jorge Villalba Acevedo [cre, aut], Universidad Tecnológica de Bolívar, Cartagena-Colombia.
+
+----
+
+If you found any ERRORS or have SUGGESTIONS, please report them to my email. Thanks. 

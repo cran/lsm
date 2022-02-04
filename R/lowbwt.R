@@ -1,0 +1,26 @@
+#' lowbwt
+#' 
+#' @title lowbwt
+#' @name lowbwt
+#' @usage lowbwt
+#' @format  A data frame with 189 observations on the following 11 variables.
+#' \describe{
+#'   \item{\code{ID}}{a numeric vector}
+#'   \item{\code{SMOKE}}{a numeric vector}
+#'   \item{\code{RACE}}{a numeric vector}
+#'   \item{\code{AGE}}{a numeric vector}
+#'   \item{\code{LWT}}{a numeric vector}
+#'   \item{\code{BWT}}{a numeric vector}
+#'   \item{\code{LOW}}{a numeric vector}
+#'   \item{\code{PTL}}{a numeric vector}
+#'   \item{\code{HT}}{a numeric vector}
+#'   \item{\code{UI}}{a numeric vector}
+#'   \item{\code{FTV}}{a numeric vector}
+#'}
+#' 
+#' @references Hosmer, D. (2013). Wiley Series in Probability and Statistics Ser. : Applied Logistic Regression (3). New York: John Wiley & Sons, Incorporated.
+#' @examples 
+#'   # data(lowbwt)
+#'   # maybe str(lowbwt) ; plot(lowbwt) ...
+#' @keywords lowbwt
+NULL
