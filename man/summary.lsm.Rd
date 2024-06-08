@@ -15,8 +15,8 @@
 An object of class "\code{lsm}" is a list containing at least the
  following components:
 
- \item{object}{a \code{lsm} object}
- \item{\dots}{additional parameters}
+\item{object}{a \code{lsm} object}
+\item{\dots}{Additional arguments to be passed to methods.}
 }
 \description{
 Provides a \code{summary} method for \code{lsm}  objects.
@@ -35,12 +35,12 @@ The saturated model is characterized by the assumptions 1 and 2 presented in sec
  # summary(Ela)
 }
 \references{
-[1] Humberto Jesus Llinas. (2006). Accuracies in the theory of the logistic models. Revista Colombiana De Estadistica,29(2), 242-244.
+[1] LLinás, H. J. (2006). Precisiones en la teoría de los modelos logísticos. Revista Colombiana de Estadística, 29(2), 239–265. https://revistas.unal.edu.co/index.php/estad/article/view/29310
 
-[2] Hosmer, D. (2013). Wiley Series in Probability and Statistics Ser. : Applied Logistic Regression (3). New York: John Wiley & Sons, Incorporated.
+[2] Hosmer, D.W., Lemeshow, S. and Sturdivant, R.X. (2013). Applied Logistic Regression, 3rd ed., New York: Wiley.
 
-[3] Chambers, J. M. and Hastie, T. J. (1992) Statistical Models in S. Wadsworth & Brooks/Cole.
+[3] Chambers, J. M. and Hastie, T. J. (1992). Statistical Models in S. Wadsworth & Brooks/Cole.
 }
 \author{
-Jorge Villalba Acevedo [cre, aut], Cartagena-Colombia.
+Jorge Villalba Acevedo [cre, aut], (Universidad Tecnológica de Bolívar, Cartagena-Colombia).
 }

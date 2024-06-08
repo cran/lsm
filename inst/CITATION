@@ -8,18 +8,17 @@ note <- sprintf("R package version %s", meta$Version)
 
 bibentry(bibtype= "Manual",
          title = "{lsm}: Estimation of the log Likelihood of the Saturated Model",
-         author = personList(as.person("Humberto J. Llinas"),
-                             as.person("Jorge L. Villalba"),
-                             as.person("Omar J.Fabregas")),
+         author = c(person(c("Jorge", "L."), "Villalba"),
+                    person(c("Humberto", "J."), "Llinas"),
+                    person(c("Omar", "J."), "Fabregas")),
          year = year,
          note = note,
          url = "https://CRAN.R-project.org/package=lsm",
          key= "lsm-package",
-         
+
           textVersion =
-           
-           paste("Humberto J. Llinas, Jorge L. Villalba, Omar J.Fabregas ",
-                 sprintf("(%s).", year),   
+           paste("Jorge L. Villalba, Humberto J. Llinas,  Omar J. Fabregas",
+                 sprintf("(%s).", year),
                  "lsm:  Estimation of the log Likelihood of the Saturated Model",
                  paste(note, ".", sep = ""),
                  "URL https://CRAN.R-project.org/package=lsm")
@@ -29,7 +28,7 @@ bibentry(bibtype= "Manual",
 
 
 
-	 
+
 
 
 

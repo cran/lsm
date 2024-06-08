@@ -5,7 +5,7 @@
 \alias{lsm}
 \title{Estimation of the log Likelihood of the Saturated Model}
 \usage{
-lsm(formula, family = binomial, data = environment(formula))
+lsm(formula, family = binomial, data = environment(formula), ...)
 }
 \arguments{
 \item{formula}{An expression of the form y ~ model, where y is the outcome variable (binary or dichotomous: its values are 0 or 1).}
@@ -13,56 +13,64 @@ lsm(formula, family = binomial, data = environment(formula))
 \item{family}{an optional funtion for example binomial.}
 
 \item{data}{an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which \code{lsm()} is called.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \value{
 \code{lsm} returns an object of class "\code{lsm}".
 
 An object of class "\code{lsm}" is a list containing at least the
  following components:
- 
-\item{coefficients}{Vector of coefficients estimations.} 
 
-\item{Std.Error}{Vector of the coefficients’s standard error.} 
+\item{coefficients}{Vector of coefficients estimations (intercept and slopes).}
 
-\item{ExpB}{Vector with the exponential of the coefficients.} 
+\item{coef}{Vector of coefficients estimations (intercept and slopes).}
 
-\item{Wald}{Value of the Wald statistic.} 
+\item{Std.Error}{Vector of the coefficients’s standard error (intercept and slopes).}
 
-\item{DF}{Degree of freedom for the Chi-squared distribution.} 
+\item{ExpB}{Vector with the exponential of the coefficients (intercept and slopes).}
 
-\item{P.value}{P-value with the Chi-squared distribution. } 
+\item{Wald}{Value of the Wald statistic (with chi-squared distribution).}
 
-\item{Log_Lik_Complete}{Estimation of the log likelihood in the complete model.} 
+\item{DF}{Degree of freedom for the Chi-squared distribution.}
 
-\item{Log_Lik_Null}{Estimation of the log likelihood in the null model.} 
+\item{P.value}{P-value calculated with the Chi-squared distribution. }
 
-\item{Log_Lik_Logit}{Estimation of the log likelihood in the logistic model.} 
+\item{Log_Lik_Complete}{Estimation of the log likelihood in the complete model.}
 
-\item{Log_Lik_Saturate}{Estimation of the log likelihood in the saturate model.} 
+\item{Log_Lik_Null}{Estimation of the log likelihood in the null model.}
 
-\item{Populations}{Number of populations in the saturated model.} 
+\item{Log_Lik_Logit}{Estimation of the log likelihood in the logistic model.}
 
-\item{Dev_Null_vs_Logit }{Value of the test statistic  (Hypothesis: null vs logistic models).} 
+\item{Log_Lik_Saturate}{Estimation of the log likelihood in the saturate model.}
 
-\item{Dev_Logit_vs_Complete}{ Value of the test statistic  (Hypothesis:  logistic vs complete models).} 
+\item{Populations}{Number of populations in the saturated model.}
 
-\item{Dev_Logit_vs_Saturate}{ Value of the test statistic  (Hypothesis: logistic vs saturated models).} 
+\item{Dev_Null_vs_Logit }{Value of the test statistic  (Hypothesis: null vs logistic models).}
 
-\item{Df_Null_vs_Logit }{Degree of freedom for the test statistic’s distribution (Hypothesis: null vs logistic models).} 
+\item{Dev_Logit_vs_Complete}{Value of the test statistic  (Hypothesis:  logistic vs complete models).}
 
-\item{Df_Logit_vs_Complete }{ Degree of freedom for the test statistic’s distribution (Hypothesis: logistic vs saturated models).} 
+\item{Dev_Logit_vs_Saturate}{Value of the test statistic  (Hypothesis: logistic vs saturated models).}
 
-\item{Df_Logit_vs_Saturate}{ Degree of freedom for the test statistic’s distribution (Hypothesis: Logistic vs saturated models)} 
+\item{Df_Null_vs_Logit }{Degree of freedom for the test statistic’s distribution (Hypothesis: null vs logistic models).}
 
-\item{P.v_Null_vs_Logit}{\code{p-values} for the hypothesis test: null vs logistic models.} 
+\item{Df_Logit_vs_Complete }{Degree of freedom for the test statistic’s distribution (Hypothesis: logistic vs saturated models).}
 
-\item{P.v_Logit_vs_Complete }{\code{p-values} for the hypothesis test:  logistic vs complete models.} 
+\item{Df_Logit_vs_Saturate}{Degree of freedom for the test statistic’s distribution (Hypothesis: logistic vs saturated models).}
 
-\item{P.v_Logit_vs_Saturate}{\code{p-values} for the hypothesis test: logistic vs saturated models.} 
+\item{P.v_Null_vs_Logit}{P-value for the hypothesis test: null vs logistic models.}
 
-\item{Logit}{Vector with the log-odds.} 
+\item{P.v_Logit_vs_Complete }{P-value for the hypothesis test:  logistic vs complete models.}
 
-\item{p_hat}{Vector with the probabilities that the outcome variable takes the value 1, given the \code{jth} population.} 
+\item{P.v_Logit_vs_Saturate}{P-value for the hypothesis test: logistic vs saturated models.}
+
+\item{Logit}{Vector with the log-odds.}
+
+\item{p_hat_complete}{Vector with the probabilities that the outcome variable takes the value 1, given the \code{jth} population (estimated with the complete model and  without the logistic model).}
+
+\item{p_hat_null}{Vector with the probabilities that the outcome variable takes the value 1, given the \code{jth} population (estimated with the null model and  without the logistic model).}
+
+\item{p_j}{Vector with the probabilities that the outcome variable takes the value 1, given the \code{jth} population (estimated with the logistic model).}
 
 \item{odd}{Vector with the values of the odd in each \code{jth} population.}
 
@@ -72,7 +80,7 @@ An object of class "\code{lsm}" is a list containing at least the
 
 \item{n_j}{Vector with the \code{nj} (the number of the observations in each \code{jth} population).}
 
-\item{p_j}{Vector with the estimation of each \code{pj} (the probability of success in the \code{jth} population).}
+\item{p_j_tilde}{Vector with the estimation of each \code{pj} (the probability of success in the \code{jth} population) in the saturated model (without estimate the logistic parameters).}
 
 \item{v_j}{Vector with the variance of the Bernoulli variables in the \code{jth} population.}
 
@@ -92,9 +100,15 @@ An object of class "\code{lsm}" is a list containing at least the
 
 \item{mcor}{Correlation matrix for coefficient estimates.}
 
-\item{Esm}{Estimates in the saturated model.}
+\item{Esm}{Data frame with estimates in the saturated model. It contains for each population \code{j}: the value of the explanatory variables, \code{nj}, \code{Zj}, \code{pj} and Log-Likelihood \code{Lj_tilde}.}
 
-\item{Elm}{Estimates in the logistic model.}
+\item{Elm}{Data frame with estimates in the logistic model. It contains for each population \code{j}: the value of the explanatory variables, \code{nj}, \code{Zj}, \code{pj}, Log-Likelihood \code{Lj}, \code{Logit_pj} and the variance of logit (\code{var.logit}).}
+
+\item{call}{It displays the original call that was used to fit the model lsm.}
+
+\item{data}{data envarironment.}
+
+\item{\dots}{Additional arguments to be passed to methods.}
 }
 \description{
 When the values of the outcome variable \code{Y} are either 0 or 1, the function \code{lsm()} calculates the estimation of the log likelihood in the saturated model. This model is characterized by Llinas (2006, ISSN:2389-8976) in section 2.3 through the assumptions 1 and 2. If \code{Y} is dichotomous and the data are grouped in \code{J} populations, it is recommended to use the function \code{lsm()} because it works very well for all \code{K}.
@@ -102,49 +116,48 @@ When the values of the outcome variable \code{Y} are either 0 or 1, the function
 \details{
 Estimation of the log Likelihood of the Saturated Model
 
-The saturated model is characterized by the assumptions 1 and 2 presented in section 2.3 by Llinas (2006, ISSN:2389-8976).
+An expression of the form \code{y ~ model} is interpreted as a specification that the response \code{y} is modelled by a linear predictor specified symbolically by \code{model} (systematic component). Such a model consists of a series of terms separated by \code{+} operators. The terms themselves consist of variable and factor names separated by \code{:} operators. Such a term is interpreted as the interaction of all the variables and factors appearing in the term. Here, \code{y} is the outcome variable (binary or dichotomous: its values are 0 or 1).
 }
 \examples{
-# Hosmer, D. (2013) page 3: Age and coranary Heart Disease (CHD) Status of 20 subjects:
-
 #library(lsm)
 
-#AGE <- c(20,23,24,25,25,26,26,28,28,29,30,30,30,30,30,30,30,32,33,33)
-#CHD <- c(0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0)
+#1. AGE and Coronary Heart Disease (CHD) Status of 20 subjects:
 
-#data <- data.frame (CHD,  AGE )
-#lsm(CHD ~ AGE , family=binomial, data)
+   #AGE <- c(20,23,24,25,25,26,26,28,28,29,30,30,30,30,30,30,30,32,33,33)
+   #CHD <- c(0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0)
+   #data <- data.frame (CHD,  AGE )
+   #lsm(CHD ~ AGE , data)
 
-## For more ease, use the following notation.
+#2.You can use the following notation:
 
-#lsm(y~., data)
+   #lsm(y~., data)
 
-# Other case.
+#3. Other example:
 
-#y <- c(1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1)
-#x1 <- c(2, 2, 2, 5, 5, 5, 5, 8, 8, 11, 11, 11)
+   #y <- c(1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1)
+   #x1 <- c(2, 2, 2, 5, 5, 5, 5, 8, 8, 11, 11, 11)
+   #data <- data.frame (y, x1)
+   #ELAINYS <-lsm(y ~ x1, data)
+   #summary(ELAINYS)
 
-#data <- data.frame (y, x1)
-#ELAINYS <-lsm(y ~ x1, family=binomial, data)
-#summary(ELAINYS)
+#4. Other example:
 
-# Other case.
-
-#y <- as.factor(c(1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1))
-#x1 <- as.factor(c(2, 2, 2, 5, 5, 5, 5, 8, 8, 11, 11, 11))
-
-#data <- data.frame (y, x1)
-#ELAINYS1 <-lsm(y ~ x1, family=binomial, data)
-#confint(ELAINYS1)
-
+   #y <- as.factor(c(1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1))
+   #x1 <- as.factor(c(2, 2, 2, 5, 5, 5, 5, 8, 8, 11, 11, 11))
+   #data <- data.frame (y, x1)
+   #ELAINYS1 <-lsm(y ~ x1, family=binomial, data)
+   #summary(ELAINYS1)
 }
 \references{
-[1] Humberto Jesus Llinas. (2006). Accuracies in the theory of the logistic models. Revista Colombiana De Estadistica,29(2), 242-244.
+[1] LLinás, H. J. (2006). Precisiones en la teoría de los modelos logísticos. Revista Colombiana de Estadística, 29(2), 239–265. https://revistas.unal.edu.co/index.php/estad/article/view/29310
 
-[2] Hosmer, D. (2013). Wiley Series in Probability and Statistics Ser. : Applied Logistic Regression (3). New York: John Wiley & Sons, Incorporated.
+[2] Hosmer, D.W., Lemeshow, S. and Sturdivant, R.X. (2013). Applied Logistic Regression, 3rd ed., New York: Wiley.
 
-[3] Chambers, J. M. and Hastie, T. J. (1992) Statistical Models in S. Wadsworth & Brooks/Cole.
+[3] Chambers, J. M. and Hastie, T. J. (1992). Statistical Models in S. Wadsworth & Brooks/Cole.
+}
+\seealso{
+\code{\link{lsm}}
 }
 \author{
-Humberto Llinas Solano [aut], Universidad del Norte, Barranquilla-Colombia \\ Omar Fabregas Cera [aut], Universidad del Norte, Barranquilla-Colombia \\ Jorge Villalba Acevedo [cre, aut], Universidad Tecnológica de Bolívar, Cartagena-Colombia.
+Dr. rer. nat. Humberto LLinás Solano [aut] (Universidad del Norte, Barranquilla-Colombia);  MSc. Omar Fábregas Cera [aut] (Universidad del Norte, Barranquilla-Colombia); MSc. Jorge Villalba Acevedo [cre, aut] (Universidad Tecnológica de Bolívar, Cartagena-Colombia).
 }
